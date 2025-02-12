@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Только для тебя</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('your-background-image.jpg') no-repeat center center fixed; /* Замените на свой фон */
+      background-size: cover;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5rem;
+      animation: fadeIn 2s;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    h2 {
+      font-size: 2rem;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #0077ff;
+      transform: rotate(-45deg);
+      animation: fall 5s linear infinite;
+    }
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #0077ff;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: 10px;
+    }
+    @keyframes fall {
+      0% { top: -10%; }
+      100% { top: 110%; }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin-top: 20px;
+      cursor: pointer;
+      background: #0077ff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      transition: transform 0.3s;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background: #005bb5;
+    }
+    .page {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .page.active {
+      display: block;
+    }
+    .memory-photo {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      margin: 10px;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    .memory-photo:hover {
+      transform: scale(1.1);
+    }
+    #typed-text {
+      white-space: pre-line;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      text-align: left;
+      display: inline-block;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+    /* Стили для кнопки музыки */
+    #music-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #0077ff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      transition: transform 0.3s;
+      z-index: 1000;
+    }
+    #music-button:hover {
+      transform: scale(1.1);
+      background: #005bb5;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+      #typed-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Главная страница -->
+  <div class="page active" id="main-page">
+    <h1 class="animate__animated animate__fadeIn">Этот сайт создан только для тебя, Принцесска!</h1>
+    <button onclick="showPage('letter-page')">Открыть письмо</button>
+  </div>
+
+  <!-- Страница с письмом -->
+  <div class="page" id="letter-page">
+    <h2>Мое письмо для тебя</h2>
+    <p id="typed-text"></p>
+    <button onclick="showPage('memories-page')">Фотачки:></button>
+  </div>
+
+  <!-- Страница с воспоминаниями -->
+  <div class="page" id="memories-page">
+    <h2>Наши лучшие моменты</h2>
+    <div id="photos">
+      <!-- Добавьте свои фото -->
+      <img src="photo1.jpg" alt="Фото 1" class="memory-photo">
+      <img src="photo2.jpg" alt="Фото 2" class="memory-photo">
+    </div>
+    <button onclick="showPage('surprise-page')">Сюрприз</button>
+  </div>
+
+  <!-- Страница с сюрпризом -->
+  <div class="page" id="surprise-page">
+    <h2>Сюрприз для тебя!</h2>
+    <video controls id="video-message" width="100%" max-width="400">
+      <source src="message.mp4" type="video/mp4">
+      Ваш браузер не поддерживает видео.
+    </video>
+    <button onclick="showPage('final-page')">Завершить</button>
+  </div>
+
+  <!-- Завершающая страница -->
+  <div class="page" id="final-page">
+    <h2>Спасибо, что ты есть у меня. Люблю тебя безумно сильно!</h2>
+    <div class="heart animate__animated animate__heartBeat" style="font-size: 5rem;">❤️</div>
+  </div>
+
+  <!-- Кнопка для включения музыки -->
+  <button id="music-button" onclick="document.querySelector('audio').play()">Включить музыку(желательно в конце)</button>
+
+  <!-- Фоновая музыка -->
+  <audio autoplay loop>
+    <source src="background-music.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script>
+    // Функция для переключения страниц
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+
+  // Анимация печатающегося текста
+    const typed = new Typed('#typed-text', {
+      strings: [
+        `Прости меня за мою реакцию… Мне было больно услышать это, но, наверное, я не подумал(а), что ты могла сказать это на эмоциях. Я не хочу ссориться и терять тебя из-за этого. Ты для меня важна, и я хочу, чтобы мы все обсудили и поняли друг друга. Прости, если сможешь.\n\nЗнаешь, за эти 190 дней ты стала для меня кем-то очень родным. Я не хочу, чтобы из-за одной ссоры между нами появилась стена. Ты всё для меня, и я хочу, чтобы мы были рядом, даже когда бывает непросто.\n\nТы моя любимая принцесска, и я хочу, чтобы ты улыбалась, а не грустила из-за меня. Прости меня, пожалуйста.`
+      ],
+      typeSpeed: 50,
+      showCursor: false,
+    });
+
+    // Падающие сердечки
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    // Скрыть кнопку музыки после нажатия
+    document.querySelector('#music-button').addEventListener('click', function() {
+      document.querySelector('audio').play();
+      this.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
